@@ -1,19 +1,20 @@
 import sys, pygame, math
+import numpy as np
 from pygame.locals import*
 
-width = 1000
-height = 500
+
+width = 480
+height = 360
 screen_color = (49, 150, 100)
 line_color = (255, 0, 0)
 cubeB = [20,20,20,20,20,0,20,0,0,20,0,20,0,20,20,0,20,0,0,0,0,0,0,20,]
-zNear = 10
-zFar = 75
+zNear = 50
+zFar = 100
 FovAngle = 100
 Aspect = height/width
-ƒ = (1/math.tan((FovAngle/2)))
+ƒ = (1/math.tan((FovAngle/2)* math.pi / 180))
 
 PerProjMat = [[Aspect*ƒ,0,0,0],[0,ƒ,0,0],[0,0,(zFar/(zFar-zNear)),(((-1*zFar)*zNear)/(zFar-zNear))],[0,0,1,0]]
-
 
 
 def main():
