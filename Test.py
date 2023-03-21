@@ -21,20 +21,17 @@ Aspect = height/width
 ƒ = (1/math.tan((FovAngle/2)* math.pi / 180))
 
 roMatX = [[1,0,0],[0,(math.cos(r* math.pi / 180)),(-1*(math.sin(r* math.pi / 180)))],[0,math.sin(r* math.pi / 180),math.cos(r* math.pi / 180)]]
-
-
+print(roMatX)
 
 PerProjMat = [[Aspect*ƒ,0,0,0],[0,ƒ,0,0],[0,0,(zFar/(zFar-zNear)),(((-1*zFar)*zNear)/(zFar-zNear))],[0,0,1,0]]
 RenderedPoints = []
 
 
-
-
-
-
-
 def main():
+    loadP = cubeA
+    loadPLines = cubeALines
     def rFrame(screen):
+        RenderedPoints = []
         for i in range(len(loadP)//3):
             p = i*3
             point = [loadP[p],loadP[p+1],loadP[p+2],1]
@@ -52,8 +49,6 @@ def main():
         pygame.display.flip()
 
 
-    loadP = cubeA
-    loadPLines = cubeALines
     screen=pygame.display.set_mode((width,height))
     screen.fill(screen_color)
     rFrame(screen)
@@ -69,7 +64,7 @@ def main():
                         for i in range(len(loadP)//3):
                             p = i*3
                             point = [loadP[p],loadP[p+1],loadP[p+2]]
-                            z.append(np.dot(roMatX,point).tolist())
+                            z = z + (np.dot(roMatX,point).tolist())
                         loadP = z 
                         print(loadP)
                             
