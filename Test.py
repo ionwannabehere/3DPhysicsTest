@@ -21,7 +21,8 @@ Aspect = height/width
 ƒ = (1/math.tan((FovAngle/2)* math.pi / 180))
 
 roMatX = [[1,0,0],[0,(math.cos(r* math.pi / 180)),(-1*(math.sin(r* math.pi / 180)))],[0,math.sin(r* math.pi / 180),math.cos(r* math.pi / 180)]]
-print(roMatX)
+roMatXNeg = [[1,0,0],[0,(math.cos((r*-1)* math.pi / 180)),(-1*(math.sin((r*-1)* math.pi / 180)))],[0,math.sin((r*-1)* math.pi / 180),math.cos((r*-1)* math.pi / 180)]]
+roMatY = [[math.cos(r* math.pi / 180),0,math.sin(r * math.pi /180)],[0,1,0],[(-1* (math.sin(r * math.pi / 180))),0, math.cos(r * math.pi / 180)]]
 
 PerProjMat = [[Aspect*ƒ,0,0,0],[0,ƒ,0,0],[0,0,(zFar/(zFar-zNear)),(((-1*zFar)*zNear)/(zFar-zNear))],[0,0,1,0]]
 RenderedPoints = []
@@ -67,6 +68,23 @@ def main():
                             z = z + (np.dot(roMatX,point).tolist())
                         loadP = z 
                         print(loadP)
-                            
+                        rFrame(screen)
+                    if event.key == pygame.K_s:
+                        z = []
+                        for i in range(len(loadP)//3):
+                            p = i*3
+                            point = [loadP[p],loadP[p+1],loadP[p+2]]
+                            z = z + (np.dot(roMatXNeg,point).tolist())
+                        loadP = z 
+                        print(loadP)
+                        rFrame(screen)
+                    if event.key == pygame.K_a:
+                        z = []
+                        for i in range(len(loadP)//3):
+                            p = i*3
+                            point = [loadP[p],loadP[p+1],loadP[p+2]]
+                            z = z + (np.dot(roMatY,point).tolist())
+                        loadP = z 
+                        print(loadP)
                         rFrame(screen)
 main()
