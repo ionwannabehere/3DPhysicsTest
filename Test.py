@@ -108,17 +108,17 @@ def main():
         for i in range(1, (len(loadP)//3)+1):
             loadP[i*2] = loadP[i*2]-0.2
         rFrame(screen)
-        return datetime.now() 
+        return datetime.now() + timedelta(seconds=1)
 
     while True:
         if timeFired != 0:
-            start_time = timeFired
 
-            time_elapsed = datetime.now() - start_time 
+            if datetime.now() > timeFired:
+                # HEART BEAT 
 
-            if time_elapsed > (timeFired + datetime.timedelta(seconds=1)):
                 timeFired = grav()
         else:
+            # HEART BEAT START
             timeFired = grav()
 
         for event in pygame.event.get():
