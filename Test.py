@@ -101,12 +101,13 @@ def main():
 
     
     timeFired = 0
+    movTest = -0.2
 
-    def grav():
+    def grav(mov):
         print("GRAV")
         print(loadP)
 
-        moveDis = -0.4
+        moveDis = mov
         # LATERAL X MOVE
         #for i in range(0, (len(loadP)//3)):
         #    loadP[i*3] = loadP[i*3]-moveDis
@@ -117,9 +118,12 @@ def main():
 
         # LATERAL Z MOVE
         for i in range(0, (len(loadP)//3)):
-            loadP[i*3 -2 ] = loadP[i*3 - 2]-moveDis
+            if loadP[i*3 -2 ] < 25:
+                loadP[i*3 -2 ] = loadP[i*3 - 2]-moveDis
+            else:
+                break
         rFrame(screen)
-        return datetime.now() + timedelta(seconds=1)
+        return datetime.now() + timedelta(seconds=0.5)
 
     while True:
         if timeFired != 0:
@@ -127,10 +131,12 @@ def main():
             if datetime.now() > timeFired:
                 # HEART BEAT 
 
-                timeFired = grav()
+                timeFired = grav(movTest)
+                movTest = movTest *1.4
         else:
             # HEART BEAT START
-            timeFired = grav()
+            timeFired = grav(movTest)
+            movTest = movTest *1.4
 
         for event in pygame.event.get():
             if event.type == QUIT:
