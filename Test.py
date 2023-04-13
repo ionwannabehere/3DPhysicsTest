@@ -105,8 +105,19 @@ def main():
     def grav():
         print("GRAV")
         print(loadP)
-        for i in range(1, (len(loadP)//3)+1):
-            loadP[i*2] = loadP[i*2]-0.2
+
+        moveDis = -0.4
+        # LATERAL X MOVE
+        #for i in range(0, (len(loadP)//3)):
+        #    loadP[i*3] = loadP[i*3]-moveDis
+
+        # LATERAL Z MOVE
+        #for i in range(0, (len(loadP)//3)):
+        #    loadP[i*3 -1 ] = loadP[i*3 - 1]-moveDis
+
+        # LATERAL Z MOVE
+        for i in range(0, (len(loadP)//3)):
+            loadP[i*3 -2 ] = loadP[i*3 - 2]-moveDis
         rFrame(screen)
         return datetime.now() + timedelta(seconds=1)
 
