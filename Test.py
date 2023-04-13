@@ -5,8 +5,10 @@ from pygame.locals import *
 import subprocess
 from multiprocessing import Process
 import time
+from datetime import datetime, timedelta
 
 
+#websockify -D --web=/usr/share/novnc/ --cert=/etc/ssl/novnc.pem 6080 localhost:5901
 
 
 p = subprocess.Popen([sys.executable, '/workspaces/3DPhysicsTest/physiscs.py'], 
@@ -66,6 +68,7 @@ RenderedPoints = []
 pygame.init()
 
 
+
 def main():
     loadP = cubeA
     loadPLines = cubeALines
@@ -93,19 +96,31 @@ def main():
     screen.fill(screen_color)
     rFrame(screen)
 
-    def grav():
-        while True:
-            print("GRAV")
-            print(loadP)
-            for i in range(1, (len(loadP)//3)+1):
-                loadP[i*2] = loadP[i*2]-0.2
-            rFrame(screen)
-            time.sleep(1)
 
-    proc = Process(target=grav,)
-    proc.start()
+
+
+    
+    timeFired = 0
+
+    def grav():
+        print("GRAV")
+        print(loadP)
+        for i in range(1, (len(loadP)//3)+1):
+            loadP[i*2] = loadP[i*2]-0.2
+        rFrame(screen)
+        return datetime.now() 
 
     while True:
+        if timeFired != 0:
+            start_time = timeFired
+
+            time_elapsed = datetime.now() - start_time 
+
+            if time_elapsed > (timeFired + datetime.timedelta(seconds=1)):
+                timeFired = grav()
+        else:
+            timeFired = grav()
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 sys.exit(0)
