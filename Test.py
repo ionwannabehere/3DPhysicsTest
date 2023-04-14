@@ -96,12 +96,8 @@ def main():
     screen.fill(screen_color)
     rFrame(screen)
 
-
-
-
-    
     timeFired = 0
-    movTest = -0.2
+    movTest = -1.2
 
     def grav(mov):
         print("GRAV")
@@ -118,12 +114,16 @@ def main():
 
         # LATERAL Z MOVE
         for i in range(0, (len(loadP)//3)):
-            if loadP[i*3 -2 ] < 25:
-                loadP[i*3 -2 ] = loadP[i*3 - 2]-moveDis
+            pointX = loadP[i*3]
+            pointZ = loadP[i*3 - 1]
+            pointY = loadP[i*3 - 2]
+
+            if pointY < 25:
+                loadP[i*3 -2] = pointY-moveDis
             else:
                 break
         rFrame(screen)
-        return datetime.now() + timedelta(seconds=0.5)
+        return datetime.now() + timedelta(seconds=1)
 
     while True:
         if timeFired != 0:
